@@ -65,6 +65,9 @@ const SignUp = () => {
                         {isSending?<p className="centered">Sending Request...</p>:''}
                     </Card.Body>
                 </Card>
+                <Card className='shadow-lg mt-3 p-2'>
+                        <p className='text-center'>Have an account? Login</p>
+                    </Card>
             </Col>
         </Row>
     </Container>
