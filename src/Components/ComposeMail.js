@@ -35,6 +35,7 @@ const ComposeMail = (props) => {
 
       .then((res) => {
         console.log(res.data);
+        localStorage.setItem("reciever",reciever)
       })
       .catch((err) => alert(err));
   };

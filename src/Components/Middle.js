@@ -1,8 +1,12 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import { Archive, ArrowUpSquare, BoxArrowInRight, ChevronDown, Star, Trash, XOctagonFill } from 'react-bootstrap-icons'
+import { Archive, ArrowUpSquare, ChevronDown, Trash, XOctagonFill } from 'react-bootstrap-icons'
+import { useSelector } from 'react-redux'
+import MailList from './MailList'
 import './Middle.css'
 const Middle = () => {
+  const mails = useSelector(state=>state.mail.mails);
+  console.log(mails);
   return (
    <>
    <Container className='mt-4'>
@@ -12,83 +16,10 @@ const Middle = () => {
         <Col>Sort <ChevronDown/></Col>
       </Row>
     <div class="emailList__list mt-5">
-<div class="emailRow">
-  <div class="emailRow__options">
-    <input type="checkbox" name="" id="" />
-    <span class="material-icons"> <Star/> </span>
-    <span class="material-icons"> <BoxArrowInRight/> </span>
-  </div>
+    <MailList subject="Hello" message="You are good guy"/>
 
-  <h3 class="emailRow__title">YouTube</h3>
 
-  <div class="emailRow__message">
-    <h4>
-      You Got a New Subscriber
-      <span class="emailRow__description"> - on Your Channel Future Coders </span>
-    </h4>
-  </div>
 
-  <p class="emailRow__time">10pm</p>
-</div>
-
-<div class="emailRow">
-  <div class="emailRow__options">
-    <input type="checkbox" name="" id="" />
-    <span class="material-icons"> <Star/> </span>
-    <span class="material-icons"> <BoxArrowInRight/> </span>
-  </div>
-
-  <h3 class="emailRow__title">YouTube</h3>
-
-  <div class="emailRow__message">
-    <h4>
-      You Got a New Subscriber
-      <span class="emailRow__description"> - on Your Channel Future Coders </span>
-    </h4>
-  </div>
-
-  <p class="emailRow__time">10pm</p>
-</div>
-
-<div class="emailRow">
-  <div class="emailRow__options">
-    <input type="checkbox" name="" id="" />
-    <span class="material-icons"> <Star/> </span>
-    <span class="material-icons"> <BoxArrowInRight/> </span>
-  </div>
-
-  <h3 class="emailRow__title">YouTube</h3>
-
-  <div class="emailRow__message">
-    <h4>
-      You Got a New Subscriber<span class="emailRow__description">
-        - on Your Channel Future Coders
-      </span>
-    </h4>
-  </div>
-
-  <p class="emailRow__time">10pm</p>
-</div>
-
-<div class="emailRow">
-  <div class="emailRow__options">
-    <input type="checkbox" name="" id="" />
-    <span class="material-icons"> <Star/> </span>
-    <span class="material-icons"> <BoxArrowInRight/> </span>
-  </div>
-
-  <h3 class="emailRow__title">Google</h3>
-
-  <div class="emailRow__message">
-    <h4>
-      Login on New Device<span class="emailRow__description">
-        - is this your Device ?
-      </span>
-    </h4>
-  </div>
-
-  <p class="emailRow__time">2am</p>
-</div>
 </div>
 </Container>
    </>
