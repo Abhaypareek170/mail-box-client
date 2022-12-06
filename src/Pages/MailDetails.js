@@ -28,7 +28,7 @@ const HomePage = () => {
       >
         {isShown && <ComposeMail onClose={hideHandler} />}
         <SideBar onShow={showHandler} />
-        <Middle />
+        <Message />
       </div>
     </>
   );

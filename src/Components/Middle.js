@@ -3,10 +3,22 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { Archive, ArrowUpSquare, ChevronDown, Trash, XOctagonFill } from 'react-bootstrap-icons'
 import { useSelector } from 'react-redux'
 import MailList from './MailList'
+
 import './Middle.css'
 const Middle = () => {
   const mails = useSelector(state=>state.mail.mails);
   console.log(mails);
+  const mailList = mails.map((mail) => (
+    <MailList
+      subject={mail.subject}
+      to={mail.to}
+      id={mail.id}
+      key={Math.random()}
+      message={mail.message}
+      isRead = {mail.isRead}
+    />
+  ));
+
   return (
    <>
    <Container className='mt-4'>
@@ -16,7 +28,7 @@ const Middle = () => {
         <Col>Sort <ChevronDown/></Col>
       </Row>
     <div class="emailList__list mt-5">
-    <MailList subject="Hello" message="You are good guy"/>
+    {mailList}
 
 
 

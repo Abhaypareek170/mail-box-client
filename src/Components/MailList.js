@@ -1,26 +1,43 @@
+import axios from 'axios';
 import React from 'react'
-import { BoxArrowInRight,  Star } from 'react-bootstrap-icons'
+import { BoxArrowInRight,  Dot } from 'react-bootstrap-icons'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { mailActions } from '../store/MailSlice';
 
 const MailList = (props) => {
+  const dispatch = useDispatch();
+  const userId = localStorage.getItem("email").replace(/[@,.]/g, "");
+  const navigate = useNavigate();
+  const clickHandler = (e)=>{
+    if(!props.isRead)dispatch(mailActions.markRead());
+    navigate('/message',{state:{to:props.to,subject:props.subject,message:props.message}})
+    axios.put(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/${props.id}.json`,
+        {isRead:true,message:props.message,subject:props.subject,to:props.to},
+    )
+
+  }
   return (
-    <div class="emailRow">
-  <div class="emailRow__options">
+   <>
+   <div className="emailRow" onClick={clickHandler}>
+  <div className="emailRow__options">
     <input type="checkbox" name="" id="" />
-    <span class="material-icons"> <Star/> </span>
-    <span class="material-icons"> <BoxArrowInRight/> </span>
+    <span className="material-icons"> {!props.isRead&&<Dot color="royalblue" size={60} />} </span>
+
+    <span className="material-icons"> <BoxArrowInRight/> </span>
   </div>
 
-  <h3 class="emailRow__title">{props.subject}</h3>
+  <h3 className="emailRow__title">{props.subject}</h3>
 
-  <div class="emailRow__message">
+  <div className="emailRow__message">
     <h4>
-      Message
-      <span class="emailRow__description">{props.message} </span>
+      <span className="emailRow__description">{props.message} </span>
     </h4>
   </div>
 
-  <p class="emailRow__time">10pm</p>
+  <p className="emailRow__time">10pm</p>
 </div>
+</>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Container, Form, Navbar } from 'react-bootstrap'
-import { authActions } from '../store/authSlice'
+import { authActions } from '../../store/authSlice'
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 

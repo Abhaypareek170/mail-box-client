@@ -5,20 +5,24 @@ import { mailActions } from "./store/MailSlice";
 import Login from "./Components/Auth/Login";
 import SignUp from "./Components/Auth/SignUp";
 import HomePage from "./Pages/HomePage";
+import MailDetails from "./Pages/MailDetails"
 import axios from "axios";
+import { useEffect } from "react";
+
 
 function App() {
   const dispatch = useDispatch();
   // const isAuth = useSelector((state) => state.auth.isAuthenticated);
-  const userId = useSelector((state) => state.auth.userId);
+  const userId = localStorage.getItem("email").replace(/[@,.]/g, "");
   const reciever = useSelector((state) => state.auth.recieverId);
+   useEffect(()=>{
     axios
     .get(
-      `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${reciever}${userId}.json`
+      `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}.json`
     )
     .then((res) => {
       let datas = res.data;
-
+      console.log(res.data)
       let mailArray = [];
       for (let id in datas) {
         let mail = datas[id];
@@ -26,7 +30,8 @@ function App() {
         mailArray.push(mail);
       }
       dispatch(mailActions.addMail(mailArray));
-    });
+    })
+   },[dispatch]) 
   return (
     <>
       <BrowserRouter>
@@ -34,6 +39,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signUp" element={<SignUp />} />
+          <Route path="/message" element={<MailDetails/>}/>
         </Routes>
       </BrowserRouter>
     </>

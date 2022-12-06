@@ -1,7 +1,9 @@
 import React from 'react'
 import { BoxArrowInRight, CameraVideo, ChevronDown, Clock, FileEarmark, Inbox, Person, Phone, PlusCircleDotted, Send, Star } from 'react-bootstrap-icons'
+import { useSelector } from 'react-redux'
 import './SideBar.css'
 const SideBar = (props) => {
+  const unread = useSelector(state=>state.mail.unread)
   return (
     <>
         <div className="sidebar">
@@ -9,6 +11,10 @@ const SideBar = (props) => {
         <div className="sidebarOption sidebarOption__active">
           <span className="material-icons"><Inbox/> </span>
           <h3>Inbox</h3>
+        </div>
+        <div className="sidebarOption">
+          <span className="material-icons"><Star/></span>
+          <h3>Unread{unread}</h3>
         </div>
 
         <div className="sidebarOption">

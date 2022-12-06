@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Button, Card, Container, Form } from "react-bootstrap";
 import { EditorState } from "draft-js";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./ComposeMail.css";
@@ -10,7 +10,7 @@ const ComposeMail = (props) => {
   const emailInputRef = useRef();
   const subjectInputRef = useRef();
 
-  const userId = useSelector((state) => state.auth.userId);
+  const userId = localStorage.getItem("email").replace(/[@,.]/g, "");
   const editorState = EditorState.createEmpty();
   let message;
   const onEditorStateChange = (event) => {
@@ -21,15 +21,15 @@ const ComposeMail = (props) => {
     const recieverId = emailInputRef.current.value;
     const subject = subjectInputRef.current.value;
     const reciever = recieverId.replace(/[@,.]/g, "");
-
     const mail = {
       to: recieverId,
       subject: subject,
       message: message,
+      isRead:false,
     };
     axios
       .post(
-        `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}${reciever}.json`,
+        `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}.json`,
         mail
       )
 
