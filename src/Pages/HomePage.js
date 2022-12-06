@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import ComposeMail from "../Components/Compose/ComposeMail";
 import Inbox from "../Components/Layout/Inbox";
-import Middle from "../Components/Middle";
+import Middle from "../Components/Inbox/Middle";
 import SideBar from "../Components/Layout/SideBar";
-import Message from "../Components/Message";
 
 const HomePage = () => {
   const [isShown, setIsShown] = useState(false);

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import ComposeMail from "../Components/Compose/ComposeMail";
-import Inbox from "../Components/Layout/Inbox";
-import SideBar from "../Components/Layout/SideBar";
-import Message from "../Components/Message";
+import React, { useState } from 'react'
+import ComposeMail from "../../Components/Compose/ComposeMail";
+import Inbox from "../../Components/Layout/Inbox";
+import SideBar from "../../Components/Layout/SideBar";
+import SentMiddle from './SentMiddle';
 
-const HomePage = () => {
+const Sent = () => {
   const [isShown, setIsShown] = useState(false);
 
   const showHandler = () => {
@@ -17,7 +17,7 @@ const HomePage = () => {
   };
   return (
     <>
-      <Inbox />
+     <Inbox />
       <div
         className="main-body"
         style={{
@@ -27,10 +27,10 @@ const HomePage = () => {
       >
         {isShown && <ComposeMail onClose={hideHandler} />}
         <SideBar onShow={showHandler} />
-        <Message />
+        <SentMiddle/>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default Sent

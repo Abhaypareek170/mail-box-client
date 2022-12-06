@@ -6,7 +6,11 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./ComposeMail.css";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { mailActions } from "../../store/MailSlice";
 const ComposeMail = (props) => {
+  const mails = useSelector(state=>state.mail.mails);
+  const dispatch = useDispatch();
   const emailInputRef = useRef();
   const subjectInputRef = useRef();
 
@@ -27,16 +31,18 @@ const ComposeMail = (props) => {
       message: message,
       isRead:false,
     };
+    dispatch(mailActions.addSentMail([...mails,mail]))
     axios
       .post(
-        `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}.json`,
+        `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/sent.json`,
         mail
       )
-
-      .then((res) => {
-        console.log(res.data);
-        localStorage.setItem("reciever",reciever)
-      })
+      .catch((err) => alert(err));
+      axios
+      .post(
+        `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${reciever}/inbox.json`,
+        mail
+      )
       .catch((err) => alert(err));
   };
 
