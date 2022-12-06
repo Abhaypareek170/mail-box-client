@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react'
-import { BoxArrowInRight,  Dot } from 'react-bootstrap-icons'
+import { BoxArrowInRight,  Dot, Trash2Fill } from 'react-bootstrap-icons'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { mailActions } from '../store/MailSlice';
@@ -15,12 +15,15 @@ const MailList = (props) => {
     axios.put(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/${props.id}.json`,
         {isRead:true,message:props.message,subject:props.subject,to:props.to},
     )
-
+  }
+  const deleteMailHandler = (e)=>{
+    e.preventDefault();
+    axios.delete(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/${props.id}.json`)
   }
   return (
    <>
-   <div className="emailRow" onClick={clickHandler}>
-  <div className="emailRow__options">
+   <div className="emailRow">
+  <div className="emailRow__options"  onClick={clickHandler}>
     <input type="checkbox" name="" id="" />
     <span className="material-icons"> {!props.isRead&&<Dot color="royalblue" size={60} />} </span>
 
@@ -36,6 +39,7 @@ const MailList = (props) => {
   </div>
 
   <p className="emailRow__time">10pm</p>
+  <Trash2Fill onClick={deleteMailHandler}/>
 </div>
 </>
   )
