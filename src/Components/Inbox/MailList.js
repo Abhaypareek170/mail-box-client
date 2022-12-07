@@ -16,9 +16,9 @@ const MailList = (props) => {
     if(pathname==="/sent"){
       navigate('/message',{state:{to:props.to,subject:props.subject,message:props.message}});
     }
-    
-    // if(!props.isRead)dispatch(mailActions.markRead());
+     
     else{
+      if(!props.isRead)dispatch(mailActions.markRead());
       dispatch(mailActions.updateMail(props.id));
       navigate('/message',{state:{to:props.to,subject:props.subject,message:props.message}});
       axios.put(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`,

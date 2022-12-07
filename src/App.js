@@ -15,7 +15,8 @@ function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("email").replace(/[@,.]/g, "");
    useEffect(()=>{
-    axios
+   const interval =  setInterval(()=>{
+      axios
     .get(
       `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/inbox.json`
     )
@@ -29,10 +30,15 @@ function App() {
         mailArray.push(mail);
       }
       dispatch(mailActions.addMail(mailArray));
+      console.log("calling backend")
     })
+    return () => clearInterval(interval);
+    },2000)
+    
    },[dispatch,userId]) 
    useEffect(()=>{
-    axios
+    const interval= setInterval(()=>{
+      axios
     .get(
       `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/sent.json`
     )
@@ -46,7 +52,10 @@ function App() {
         mailArray.push(mail);
       }
       dispatch(mailActions.addSentMail(mailArray));
+      console.log("calling backend2")
     })
+    },2000)
+    return () => clearInterval(interval);
    },[dispatch,userId]) 
   return (
     <>
