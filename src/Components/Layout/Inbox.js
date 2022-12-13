@@ -10,8 +10,9 @@ const Inbox = () => {
   const logoutHandler = (e)=>{
     e.preventDefault();
     dispatch(authActions.logout())
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
     navigate('/login')
-
   }
   return (
     <>

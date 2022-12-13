@@ -32,7 +32,7 @@ const Login = () => {
       .then((res) => {
         setIsSending(false);
         if (res.ok) {
-          navigate("/");
+         
           console.log("User has successfully LogIn!");
           return res.json();
         } else {
@@ -44,10 +44,12 @@ const Login = () => {
         }
       })
       .then((data) => {
+       
         const token = data.idToken;
         localStorage.setItem("token",token);
-        dispatch(authActions.login(data.idToken));
-        dispatch(authActions.setUserId(enteredEmail));
+        localStorage.setItem("email", enteredEmail);
+        dispatch(authActions.login(token));
+        navigate("/");
       });
   };
   return (
@@ -77,7 +79,7 @@ const Login = () => {
                       required
                     />
                   </Form.Group>
-                  <Link>
+                  <Link to="/forgot-password">
                     <p>Forgot Password</p>
                   </Link>
                   <Form.Group className="mb-3">

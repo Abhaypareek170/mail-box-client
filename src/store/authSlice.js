@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+const token = localStorage.getItem('token');
+const userId = localStorage.getItem('email');
 const initialAuthState = {
-  isAuthenticated: false,
-  token: "",
-  userId: "",
-  recieverId: "",
+  isAuthenticated: !!token,
+  token: token,
+  userId: userId.replace(/[@,.]/g, ""),
 };
 const authSlice = createSlice({
   name: "authentication",
@@ -12,22 +12,12 @@ const authSlice = createSlice({
   reducers: {
     login(state, action) {
       state.isAuthenticated = true;
-      state.token = action.payload;
-      localStorage.setItem("token", action.payload);
+      state.token = action.payload.token;
+      state.userId = localStorage.getItem('email');
     },
     logout(state) {
       state.isAuthenticated = false;
-      state.token = "";
-      localStorage.removeItem("token");
-      localStorage.removeItem("email");
-    },
-    setRecieverId(state, action) {
-        localStorage.setItem("reciever", action.payload);
-        state.recieverId = action.payload.replace(/[@,.]/g, "");
-      },
-    setUserId(state, action) {
-      localStorage.setItem("email", action.payload);
-      state.userId = action.payload.replace(/[@,.]/g, "");
+      state.token = null;
     },
   },
 });

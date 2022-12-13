@@ -8,6 +8,8 @@ import { mailActions } from '../../store/MailSlice';
 const MailList = (props) => {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("email").replace(/[@,.]/g, "");
+  console.log("from",props.from)
+  console.log("recive",props.to)
   const navigate = useNavigate();
   const location = useLocation();
   let pathname = location.pathname;
@@ -20,9 +22,9 @@ const MailList = (props) => {
     else{
       if(!props.isRead)dispatch(mailActions.markRead());
       dispatch(mailActions.updateMail(props.id));
-      navigate('/message',{state:{to:props.to,subject:props.subject,message:props.message}});
+      navigate('/message',{state:{to:props.to,subject:props.subject,message:props.message,from:props.from}});
       axios.put(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`,
-      {isRead:true,message:props.message,subject:props.subject,to:props.to},
+      {isRead:true,message:props.message,subject:props.subject,to:props.to,from:props.from},
     )}
   }
   const deleteMailHandler = (e)=>{
@@ -34,7 +36,7 @@ const MailList = (props) => {
     else
     {
     dispatch(mailActions.deleteMail(props.id));
-    axios.delete(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}inbox//${props.id}.json`);
+    axios.delete(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`);
     }  
 }
   return (
@@ -47,7 +49,7 @@ const MailList = (props) => {
     <span className="material-icons"> <BoxArrowInRight/> </span>
   </div>
 
-  <h3 className="emailRow__title">{props.subject}</h3>
+  <h3 className="emailRow__title">{pathname==="/sent"? props.to: props.from }</h3>
 
   <div className="emailRow__message">
     <h4>

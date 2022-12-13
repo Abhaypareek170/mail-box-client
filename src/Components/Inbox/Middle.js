@@ -12,6 +12,7 @@ const Middle = () => {
     <MailList
       subject={mail.subject}
       to={mail.to}
+      from={mail.from}
       id={mail.id}
       key={Math.random()}
       message={mail.message}

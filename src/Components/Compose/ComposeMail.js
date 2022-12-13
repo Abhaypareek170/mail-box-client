@@ -13,37 +13,34 @@ const ComposeMail = (props) => {
   const dispatch = useDispatch();
   const emailInputRef = useRef();
   const subjectInputRef = useRef();
-
-  const userId = localStorage.getItem("email").replace(/[@,.]/g, "");
+  const userMail=  localStorage.getItem("email");
+  const userId =userMail.replace(/[@,.]/g, "");
   const editorState = EditorState.createEmpty();
   let message;
   const onEditorStateChange = (event) => {
     message = event.getCurrentContent().getPlainText();
   };
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async(event) => {
     event.preventDefault();
     const recieverId = emailInputRef.current.value;
     const subject = subjectInputRef.current.value;
     const reciever = recieverId.replace(/[@,.]/g, "");
     const mail = {
+      from:userMail,
       to: recieverId,
       subject: subject,
       message: message,
       isRead:false,
     };
+    
+    try{
+      const postSent = await axios.post(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/sent.json`,mail)
+      const postInbox = await axios.post(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${reciever}/inbox.json`,mail)
+    }
+    catch(err){
+      alert(err)
+    }
     dispatch(mailActions.addSentMail([...mails,mail]))
-    axios
-      .post(
-        `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/sent.json`,
-        mail
-      )
-      .catch((err) => alert(err));
-      axios
-      .post(
-        `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${reciever}/inbox.json`,
-        mail
-      )
-      .catch((err) => alert(err));
   };
 
   return (

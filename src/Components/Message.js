@@ -62,7 +62,7 @@ const Message = () => {
         <p>{location.state.subject}</p>
       </div>
       <div className="messageDetail__sender">
-        <p>{location.state.to}</p>
+        <p>{location.state.from?`From : ${location.state.from}`: `To : ${location.state.to}`}</p>
         <p>{"10PM"}</p>
       </div>
       <div className="messageDetail__message">
