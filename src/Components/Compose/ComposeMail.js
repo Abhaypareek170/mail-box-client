@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { Button, Card, Container, Form } from "react-bootstrap";
 import { EditorState } from "draft-js";
-// import { useSelector } from "react-redux";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./ComposeMail.css";
@@ -34,11 +33,12 @@ const ComposeMail = (props) => {
     };
     
     try{
-      const postSent = await axios.post(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/sent.json`,mail)
-      const postInbox = await axios.post(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${reciever}/inbox.json`,mail)
+      const postSent = await axios.post(`https://mail-box-82628-default-rtdb.firebaseio.com/mails/${userId}/sent.json`,mail)
+      const postInbox = await axios.post(`https://mail-box-82628-default-rtdb.firebaseio.com/mails/${reciever}/inbox.json`,mail)
+      console.log(postSent,postInbox)
     }
     catch(err){
-      alert(err)
+      alert(err);
     }
     dispatch(mailActions.addSentMail([...mails,mail]))
   };

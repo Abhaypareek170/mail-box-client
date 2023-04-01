@@ -11,9 +11,11 @@ const SignUp = () => {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    setIsSending(true);
+    const enteredCnfPassword = cnfPasswordInputRef.current.value;
+    if(enteredCnfPassword===enteredPassword){
+      setIsSending(true);
     fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBzkbQlqLGa30_30OHt3vgUuIcQNCBabJM",
+      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyATPAoOtNw6lJr0FRbNiBC-VsJ4XPrHXig",
       {
         method: "POST",
         body: JSON.stringify({
@@ -22,13 +24,13 @@ const SignUp = () => {
           returnSecureToken: true,
         }),
         headers: {
-          "Content-Type": "application/json",
+         "Content-Type": "application/json",
         },
       }
     ).then((res) => {
       setIsSending(false);
       if (res.ok) {
-        console.log("User has successfully signed up!");
+       alert("User has successfully signed up!");
         return res.json();
       } else {
         return res.json().then(() => {
@@ -38,6 +40,11 @@ const SignUp = () => {
         });
       }
     });
+    }
+    else{
+      alert('The passwords you entered do not match.')
+    }
+    
   };
   return (
     <>
@@ -90,7 +97,7 @@ const SignUp = () => {
             </Card>
             <Card className="shadow-lg mt-3 p-2">
               <p className="text-center">
-                Have an account? <Link to="/login">Login</Link>
+                Have an account? <Link to="/">Login</Link>
               </p>
             </Card>
           </Col>

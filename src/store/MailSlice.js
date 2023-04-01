@@ -36,6 +36,11 @@ const mailSlice = createSlice({
       const index = mails.findIndex((mail) => mail.id === action.payload);
       mails[index].isRead = true;
       state.mails = mails;
+    },
+    setMail:(state)=>{
+      state.mails = [];
+      state.sentMails=[];
+      state.unread = 0;
     }
   },
 });

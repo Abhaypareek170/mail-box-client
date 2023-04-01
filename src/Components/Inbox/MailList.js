@@ -8,8 +8,6 @@ import { mailActions } from '../../store/MailSlice';
 const MailList = (props) => {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("email").replace(/[@,.]/g, "");
-  console.log("from",props.from)
-  console.log("recive",props.to)
   const navigate = useNavigate();
   const location = useLocation();
   let pathname = location.pathname;
@@ -23,7 +21,7 @@ const MailList = (props) => {
       if(!props.isRead)dispatch(mailActions.markRead());
       dispatch(mailActions.updateMail(props.id));
       navigate('/message',{state:{to:props.to,subject:props.subject,message:props.message,from:props.from}});
-      axios.put(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`,
+      axios.put(`https://mail-box-82628-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`,
       {isRead:true,message:props.message,subject:props.subject,to:props.to,from:props.from},
     )}
   }
@@ -31,12 +29,12 @@ const MailList = (props) => {
     e.preventDefault();
     if(pathname==="/sent"){
       dispatch(mailActions.deleteSentMail(props.id));
-      axios.delete(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/sent/${props.id}.json`)
+      axios.delete(`https://mail-box-82628-default-rtdb.firebaseio.com/mails/${userId}/sent/${props.id}.json`)
     }
     else
     {
     dispatch(mailActions.deleteMail(props.id));
-    axios.delete(`https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`);
+    axios.delete(`https://mail-box-82628-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`);
     }  
 }
   return (
@@ -57,7 +55,7 @@ const MailList = (props) => {
     </h4>
   </div>
 
-  <p className="emailRow__time">10pm</p>
+  <p className="emailRow__time">10PM</p>
   
 </div>
 <Trash2Fill onClick={deleteMailHandler}/>

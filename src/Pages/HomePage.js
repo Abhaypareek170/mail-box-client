@@ -9,16 +9,15 @@ import { mailActions } from "../store/MailSlice";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const userId = useSelector((state)=>state.auth.userId)
-  console.log(userId)
+  const userId = useSelector((state)=>state.auth.userId);
+  const id = userId.replace(/[@,.]/g, "");
   useEffect(() => {
       axios
         .get(
-          `https://mail-box-client-860d7-default-rtdb.firebaseio.com/mails/${userId}/inbox.json`
+          `https://mail-box-82628-default-rtdb.firebaseio.com/mails/${id}/inbox.json`
         )
         .then((res) => {
           let datas = res.data;
-          console.log(res.data);
           let mailArray = [];
           for (let id in datas) {
             let mail = datas[id];
@@ -26,15 +25,12 @@ const HomePage = () => {
             mailArray = [mail,...mailArray];
           }
           dispatch(mailActions.addMail(mailArray));
-          console.log("inbox",mailArray);
-          console.log("calling backend");
         });
    
-  }, [dispatch]);
+  }, [dispatch,id]);
   const [isShown, setIsShown] = useState(false);
 
   const showHandler = () => {
-    console.log("Show called");
     setIsShown(true);
   };
 

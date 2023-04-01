@@ -8,7 +8,6 @@ const HomePage = () => {
   const [isShown, setIsShown] = useState(false);
 
   const showHandler = () => {
-    console.log("Show called");
     setIsShown(true);
   };
 

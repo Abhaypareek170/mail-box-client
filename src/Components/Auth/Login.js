@@ -16,7 +16,7 @@ const Login = () => {
     const enteredPassword = passwordInputRef.current.value;
     setIsSending(true);
     fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBzkbQlqLGa30_30OHt3vgUuIcQNCBabJM",
+      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyATPAoOtNw6lJr0FRbNiBC-VsJ4XPrHXig",
       {
         method: "POST",
         body: JSON.stringify({
@@ -32,8 +32,6 @@ const Login = () => {
       .then((res) => {
         setIsSending(false);
         if (res.ok) {
-         
-          console.log("User has successfully LogIn!");
           return res.json();
         } else {
           return res.json().then(() => {
@@ -44,12 +42,12 @@ const Login = () => {
         }
       })
       .then((data) => {
-       
+       alert("User has successfully LogIn!");
         const token = data.idToken;
         localStorage.setItem("token",token);
         localStorage.setItem("email", enteredEmail);
         dispatch(authActions.login(token));
-        navigate("/");
+        navigate("/inbox");
       });
   };
   return (

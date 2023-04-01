@@ -5,11 +5,10 @@ import { useNavigate } from 'react-router-dom';
 const Protected = (props) => {
     const {Component} = props;
     const isAuth = useSelector(state=>state.auth.isAuthenticated);
-    console.log(isAuth)
     const navigate = useNavigate();
     useEffect(()=>{
         if(!isAuth){
-           navigate('/login')
+           navigate('/')
         }
     },[isAuth,navigate])
   return (

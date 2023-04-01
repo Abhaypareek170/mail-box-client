@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "mail-box-82628",
+    "hoisting": "mail-box-82628",
+    "staging": "mail-box-82628"
+  },
+  "targets": {},
+  "etags": {}
+}

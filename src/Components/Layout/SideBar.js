@@ -10,9 +10,8 @@ const SideBar = (props) => {
  
   const inboxHandler = (e)=>{
     e.preventDefault();
-    console.log("function Call")
     setInboxClass("sidebarOption__active");
-    navigate('/');
+    navigate('/inbox');
   }
   const sentHandler = (e)=>{
     e.preventDefault();

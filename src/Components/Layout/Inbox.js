@@ -3,6 +3,7 @@ import { Button, Container, Form, Navbar } from 'react-bootstrap'
 import { authActions } from '../../store/authSlice'
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import { mailActions } from '../../store/MailSlice';
 
 const Inbox = () => {
   const navigate = useNavigate();
@@ -10,9 +11,10 @@ const Inbox = () => {
   const logoutHandler = (e)=>{
     e.preventDefault();
     dispatch(authActions.logout())
+    dispatch(mailActions.setMail());
     localStorage.removeItem("token");
     localStorage.removeItem("email");
-    navigate('/login')
+    navigate('/')
   }
   return (
     <>
