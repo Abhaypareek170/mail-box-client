@@ -13,7 +13,7 @@ const SentPage = () => {
   useEffect(() => {
       axios
       .get(
-        `https://mail-box-82628-default-rtdb.firebaseio.com/mails/${id}/sent.json`
+        `https://mail-box-client-534b6-default-rtdb.firebaseio.com/mails/${id}/sent.json`
       )
       .then((res) => {
         let datas = res.data;

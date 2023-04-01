@@ -14,7 +14,7 @@ const HomePage = () => {
   useEffect(() => {
       axios
         .get(
-          `https://mail-box-82628-default-rtdb.firebaseio.com/mails/${id}/inbox.json`
+          `https://mail-box-client-534b6-default-rtdb.firebaseio.com/mails/${id}/inbox.json`
         )
         .then((res) => {
           let datas = res.data;

@@ -33,8 +33,8 @@ const ComposeMail = (props) => {
     };
     
     try{
-      const postSent = await axios.post(`https://mail-box-82628-default-rtdb.firebaseio.com/mails/${userId}/sent.json`,mail)
-      const postInbox = await axios.post(`https://mail-box-82628-default-rtdb.firebaseio.com/mails/${reciever}/inbox.json`,mail)
+      const postSent = await axios.post(`https://mail-box-client-534b6-default-rtdb.firebaseio.com/mails/${userId}/sent.json`,mail)
+      const postInbox = await axios.post(`https://mail-box-client-534b6-default-rtdb.firebaseio.com/mails/${reciever}/inbox.json`,mail)
       console.log(postSent,postInbox)
     }
     catch(err){

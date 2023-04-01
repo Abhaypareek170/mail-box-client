@@ -21,7 +21,7 @@ const MailList = (props) => {
       if(!props.isRead)dispatch(mailActions.markRead());
       dispatch(mailActions.updateMail(props.id));
       navigate('/message',{state:{to:props.to,subject:props.subject,message:props.message,from:props.from}});
-      axios.put(`https://mail-box-82628-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`,
+      axios.put(`https://mail-box-client-534b6-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`,
       {isRead:true,message:props.message,subject:props.subject,to:props.to,from:props.from},
     )}
   }
@@ -29,12 +29,12 @@ const MailList = (props) => {
     e.preventDefault();
     if(pathname==="/sent"){
       dispatch(mailActions.deleteSentMail(props.id));
-      axios.delete(`https://mail-box-82628-default-rtdb.firebaseio.com/mails/${userId}/sent/${props.id}.json`)
+      axios.delete(`https://mail-box-client-534b6-default-rtdb.firebaseio.com/mails/${userId}/sent/${props.id}.json`)
     }
     else
     {
     dispatch(mailActions.deleteMail(props.id));
-    axios.delete(`https://mail-box-82628-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`);
+    axios.delete(`https://mail-box-client-534b6-default-rtdb.firebaseio.com/mails/${userId}/inbox/${props.id}.json`);
     }  
 }
   return (
